@@ -1,0 +1,21 @@
+name: backend-kiza
+on:
+  push:
+      branches: 
+      - main
+  jobs: 
+    build-and-deploy:ions
+      runs-on: ubuntu-latest
+      steps: 
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+           aws-access-key-id: ${{ secre}}
+           aws-secret-access-key: ${{ secre}}
+           aws-region: us
+
+      - name: Deploy static site to S3 bucket
+        run: aws s3 sync . 
