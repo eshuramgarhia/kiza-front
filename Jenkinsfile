@@ -1,43 +1,34 @@
-pipeline{
-  agent any
-  environment{
-    NODE_ENV ='development'
-  }
-  tools{
-    nodejs 'nodeJS'
-  }
-  triggers{
-    pollSCM('H/5 * * * * *')
-  }
-  stages{
-stage('Repository checking'){
-  steps{
-    echo 'Cloning the git_repo'
-    git branch:'main' , url:'https://github.com/eshuramgarhia/kiza.git'
-  }
+pipeline {
+    agent any
 
-}
-stage('Install Node-js'){
-steps{
-  echo 'inStalling node-js'
-  sh 'npm install'
-}
-}
-steps('Run')
-{
-steps{
-echo 'Running'
-sh 'npm start'
-}
-}
-  }
-  post{
-    success{
-      echo 'Compiled successfull'
+    tools {
+        nodejs 'nodejs'   // Jenkins > Global Tool Configuration ch NodeJS name
     }
-    failure{
-      echo 'Not compiled'
+
+    environment {
+        NODE_ENV = 'node_18_LTS'
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/eshuramgarhia/kiza-front.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                bat 'npm test'
+            }
+        }
+
     }
   }
-
-}
