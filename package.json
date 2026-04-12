@@ -2,7 +2,7 @@
   "name": "invoice-generation-project",
   "version": "1.0.0",
   "description": "",
-  "main": "start",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"no tests yet\""
